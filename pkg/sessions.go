@@ -290,12 +290,13 @@ func (s *sessionCache) GetAPIGateway(region *string, role Role) apigatewayiface.
 		s.mu.Lock()
 		defer s.mu.Unlock()
 	}
-	if sess, ok := s.clients[role][*region]; ok {
+	if sess, ok := s.clients[role][*region]; ok && sess.apiGateway != nil {
 		return sess.apiGateway
 	}
 
-	s.clients[role][*region].apiGateway = createAPIGatewaySession(s.session, region, role, !s.fips, s.logger.IsDebugEnabled())
+	s.clients[role][*region].apiGateway = createAPIGatewaySession(s.session, region, role, s.fips, s.logger.IsDebugEnabled())
 	return s.clients[role][*region].apiGateway
+
 }
 
 func (s *sessionCache) GetStorageGateway(region *string, role Role) storagegatewayiface.StorageGatewayAPI {
