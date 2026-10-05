@@ -2,9 +2,9 @@ package exporter
 
 func stringInSlice(str string, list []string) bool {
 	for _, v := range list {
-		if v != str {
-			return false
+		if v == str {
+			return true
 		}
 	}
-	return true
+	return false
 }
